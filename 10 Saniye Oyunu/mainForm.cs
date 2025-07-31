@@ -16,6 +16,8 @@ namespace _10_Saniye_Oyunu
         oynaForm oynaForm = new oynaForm();
         private List<KatilimciSonuc> katilimciSonuclar = new List<KatilimciSonuc>();
         bool turnuvaBaslatildi = false;
+        int denemeSayisi = 0;
+        int denemeHakki = 0;
 
         public mainForm()
         {
@@ -83,11 +85,15 @@ namespace _10_Saniye_Oyunu
         {
             if (turnuvaBaslatildi == false)
             {
-                if (string.IsNullOrEmpty(denemeHakkiTextbox.Text) || !int.TryParse(denemeHakkiTextbox.Text, out int denemeHakki) || denemeHakki <= 0)
+                if (string.IsNullOrEmpty(denemeHakkiTextbox.Text) || !int.TryParse(denemeHakkiTextbox.Text, out int deneme) || deneme <= 0)
                 {
                     MessageBox.Show("Lütfen geçerli bir deneme hakkı girin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+
+                denemeHakki = deneme;
+
                 yarismaciAdTextbox.Text = "";
                 yarismaciAdTextbox.Enabled = true;
                 denemeHakkiTextbox.Enabled = false;
@@ -118,11 +124,12 @@ namespace _10_Saniye_Oyunu
 
                 // Turnuvayı bitir
                 turnuvaBaslatildi = false;
-                denemeHakkiLabel.Checked=false;
+                denemeHakkiLabel.Checked = false;
                 denemeHakkiLabel.Enabled = true;
                 yarismaciAdTextbox.Enabled = false;
                 oynaButton.Enabled = false;
                 katilimciListbox.Enabled = false;
+                denemeHakki = 0;
                 turnuvaBaslatButton.Text = "Yeni Turnuva Başlat";
                 // Sonuçları dışarı aktar
                 if (katilimciSonuclar.Count != 0)
@@ -159,16 +166,42 @@ namespace _10_Saniye_Oyunu
 
         private void oynaButton_Click(object sender, EventArgs e)
         {
+            denemeSayisi = 0;
+            ArrayList denemeler = new ArrayList();
             this.Hide();
-            oynaForm.sayacZaman = 0;
-            oynaForm.sayacTimer.Start();
-            oynaForm.ShowDialog();
+            while (denemeHakki > denemeSayisi)
+            {
 
-            katilimciSonuclar.Add(new KatilimciSonuc(yarismaciAdTextbox.Text, oynaForm.sayacZaman));
+                oynaForm.sayacZaman = 0;
+                oynaForm.sayacTimer.Start();
+                oynaForm.ShowDialog();
+                denemeSayisi++;
 
+                denemeler.Add(oynaForm.sayacZaman);
+                if (denemeHakki > denemeSayisi)
+                {
+                    DialogResult result = MessageBox.Show("Tekrar Deneme Hakkınız Var Kullanmak. İster misiniz?", "Tekrar Dene", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                    if (DialogResult.No == result)
+                        break;
+                }
+
+            }
+            int enYakinDeger = (int)denemeler[0];
+            int enKucukFark = Math.Abs(enYakinDeger - 10000);
+
+            foreach (int deger in denemeler)
+            {
+                int fark = Math.Abs(deger - 10000);
+                if (fark < enKucukFark)
+                {
+                    enKucukFark = fark;
+                    enYakinDeger = deger;
+                }
+            }
+
+            katilimciSonuclar.Add(new KatilimciSonuc(yarismaciAdTextbox.Text, enYakinDeger));
             ListeyiGuncelle();
-
-            MessageBox.Show($"Yarışmacı Kaydedildi! {oynaForm.sayacZaman / 100.0} - {yarismaciAdTextbox.Text}");
+            MessageBox.Show($"Yarışmacı Kaydedildi! {enYakinDeger / 100.0} - {yarismaciAdTextbox.Text}");
             yarismaciAdTextbox.Text = "";
             this.Show();
         }
@@ -204,7 +237,7 @@ namespace _10_Saniye_Oyunu
                 denemeHakkiTextbox.Enabled = true;
                 denemeHakkiTextbox.Visible = true;
             }
-            if (!denemeHakkiLabel.Checked) 
+            if (!denemeHakkiLabel.Checked)
             {
                 denemeHakkiTextbox.Text = "1";
                 denemeHakkiTextbox.Enabled = false;
@@ -224,4 +257,5 @@ namespace _10_Saniye_Oyunu
             ZamanMs = zamanMs;
         }
     }
+    
 }
