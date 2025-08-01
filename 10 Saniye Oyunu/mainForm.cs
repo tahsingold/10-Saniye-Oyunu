@@ -68,7 +68,7 @@ namespace _10_Saniye_Oyunu
         private void ListeyiGuncelle()
         {
             var sorted = katilimciSonuclar
-                .OrderBy(k => Math.Abs(k.ZamanMs - 10000))
+                .OrderBy(k => Math.Abs(k.ZamanMs - 1000))
                 .ToList();
 
             katilimciListbox.Items.Clear();
@@ -151,7 +151,7 @@ namespace _10_Saniye_Oyunu
                 {
                     // Her satır: "Zaman - Ad"
                     var satirlar = katilimciSonuclar
-                        .OrderBy(k => Math.Abs(k.ZamanMs - 10000))
+                        .OrderBy(k => Math.Abs(k.ZamanMs - 1000))
                         .Select(k => $"{k.ZamanMs / 100.0} - {k.Ad}")
                         .ToList();
 
@@ -183,7 +183,7 @@ namespace _10_Saniye_Oyunu
                 }
 
             }
-            int enYakinDeger = denemeler.OrderBy(d => Math.Abs(d - 10000)).First();
+            int enYakinDeger = denemeler.OrderBy(d => Math.Abs(d - 1000)).First();
 
             katilimciSonuclar.Add(new KatilimciSonuc(yarismaciAdTextbox.Text, enYakinDeger));
             ListeyiGuncelle();
