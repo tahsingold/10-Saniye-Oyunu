@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _10_Saniye_Oyunu
@@ -167,7 +164,7 @@ namespace _10_Saniye_Oyunu
         private void oynaButton_Click(object sender, EventArgs e)
         {
             denemeSayisi = 0;
-            ArrayList denemeler = new ArrayList();
+            List<int> denemeler = new List<int>(); // Changed from ArrayList to List<int>
             this.Hide();
             while (denemeHakki > denemeSayisi)
             {
@@ -186,18 +183,7 @@ namespace _10_Saniye_Oyunu
                 }
 
             }
-            int enYakinDeger = (int)denemeler[0];
-            int enKucukFark = Math.Abs(enYakinDeger - 10000);
-
-            foreach (int deger in denemeler)
-            {
-                int fark = Math.Abs(deger - 10000);
-                if (fark < enKucukFark)
-                {
-                    enKucukFark = fark;
-                    enYakinDeger = deger;
-                }
-            }
+            int enYakinDeger = denemeler.OrderBy(d => Math.Abs(d - 10000)).First();
 
             katilimciSonuclar.Add(new KatilimciSonuc(yarismaciAdTextbox.Text, enYakinDeger));
             ListeyiGuncelle();
@@ -257,5 +243,5 @@ namespace _10_Saniye_Oyunu
             ZamanMs = zamanMs;
         }
     }
-    
+
 }

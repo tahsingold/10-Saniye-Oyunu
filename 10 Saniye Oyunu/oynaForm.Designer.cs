@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(oynaForm));
             this.zamanLabel = new System.Windows.Forms.Label();
             this.zamanDurdurButton = new System.Windows.Forms.Button();
             this.kapanisTimer = new System.Windows.Forms.Timer(this.components);
@@ -40,7 +41,7 @@
             this.zamanLabel.AutoSize = true;
             this.zamanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.zamanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.zamanLabel.Location = new System.Drawing.Point(314, 95);
+            this.zamanLabel.Location = new System.Drawing.Point(172, 86);
             this.zamanLabel.Name = "zamanLabel";
             this.zamanLabel.Size = new System.Drawing.Size(146, 69);
             this.zamanLabel.TabIndex = 0;
@@ -49,7 +50,7 @@
             // zamanDurdurButton
             // 
             this.zamanDurdurButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.zamanDurdurButton.Location = new System.Drawing.Point(177, 236);
+            this.zamanDurdurButton.Location = new System.Drawing.Point(26, 222);
             this.zamanDurdurButton.Name = "zamanDurdurButton";
             this.zamanDurdurButton.Size = new System.Drawing.Size(434, 156);
             this.zamanDurdurButton.TabIndex = 1;
@@ -67,13 +68,15 @@
             // 
             // oynaForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(482, 403);
             this.Controls.Add(this.zamanDurdurButton);
             this.Controls.Add(this.zamanLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "oynaForm";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "10 Saniye";
             this.ResumeLayout(false);
             this.PerformLayout();
 

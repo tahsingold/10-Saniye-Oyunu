@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _10_Saniye_Oyunu
@@ -33,7 +26,7 @@ namespace _10_Saniye_Oyunu
 
         private void kapanisTimer_Tick(object sender, EventArgs e)
         {
-            
+
             kapanisZaman--;
             zamanDurdurButton.Text = kapanisZaman.ToString();
             if (kapanisZaman == 0)
@@ -42,14 +35,16 @@ namespace _10_Saniye_Oyunu
                 kapanisTimer.Stop();
                 this.Close();
             }
-            
+
         }
 
         private void sayacTimer_Tick(object sender, EventArgs e)
         {
+
+
             zamanDurdurButton.Text = "Zamanı Durdur";
             sayacZaman++;
-            zamanLabel.Text = (sayacZaman/100.0).ToString();
+            zamanLabel.Text = (sayacZaman / 100.0).ToString();
         }
     }
 }
